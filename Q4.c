@@ -5,20 +5,54 @@
     Data: 17/10/2025
 */
 
+/*
+
+
+SAÍDA COMPLETA:
+
+        Insira H: 7
+        Insira G: 3
+        Insira Zn: 11
+        Insira x: 10
+        Insira n1: 13
+
+        Algoritmo de Euclides: 3 mod 11 = 3
+        Algoritmo de Euclides: 11 mod 3 = 2
+        Algoritmo de Euclides: 3 mod 2 = 1
+        Algoritmo de Euclides: 2 mod 1 = 0
+
+        Substituindo, temos que o inverso de 3 em 11 é 4.
+
+        Fazendo a multiplicacao modular: 7 * 4 mod 11 = 6
+        Sendo 4 o inverso de 3.
+        Valor final da congruencia: 4
+
+PARTE 2: V ou F
+
+(V) O algoritmo de Euclides estendido é utilizado para calcular o inverso modular de um número.
+(F) Se mdc(G, Zn) ≠ 1, o programa ainda consegue encontrar o inverso de G em Zn.
+(V) A operação (H * inverso) % Zn representa a divisão modular de H por G.
+(V) Se n1 for primo, o código aplica o Pequeno Teorema de Fermat para simplificar o cálculo de a^x mod n1.
+(F) A função powMod implementa o cálculo de potência modular utilizando multiplicações diretas sem otimização.
+(V) Quando o resultado do inverso é negativo, o código ajusta o valor somando o módulo m0.
+(V) O cálculo de fi(n1) (função totiente de Euler) é utilizado apenas quando n1 não é primo.
+
+*/
+
 #include <stdio.h>
 #ifdef _WIN32
 #include <windows.h>
 #endif
 
 // Calcula o MDC e exibe os passos do processo.
-int mdcComPassos(int a, int temp) {
-    int r;
+int mdcComPassos(int a, int b) {
+    int resto;
     // O loop continua ate o resto da divisao ser zero.
-    while (temp != 0) {
-        r = a % temp;
-        printf("Algoritmo de Euclides: %d mod %d = %d\n", a, temp, r);
-        a = temp;
-        temp = r; // Atualiza os valores para a proxima iteracao.
+    while (b != 0) {
+        resto = a % b;
+        printf("Algoritmo de Euclides: %d mod %d = %d\n", a, b, resto);
+        a = b;
+        b = resto; // Atualiza os valores para a proxima iteracao.
     }
     return a;
 }
@@ -102,20 +136,3 @@ int main() {
 
     return 0;
 }
-
-/*
-
-Para H = 7, G = 3, Zn = 11, x = 10 e n1 = 13
-O resultado final será = 4
-
-PARTE 2: V ou F
-
-(V) O algoritmo de Euclides estendido é utilizado para calcular o inverso modular de um número.
-(F) Se mdc(G, Zn) ≠ 1, o programa ainda consegue encontrar o inverso de G em Zn.
-(V) A operação (H * inverso) % Zn representa a divisão modular de H por G.
-(V) Se n1 for primo, o código aplica o Pequeno Teorema de Fermat para simplificar o cálculo de a^x mod n1.
-(F) A função powMod implementa o cálculo de potência modular utilizando multiplicações diretas sem otimização.
-(V) Quando o resultado do inverso é negativo, o código ajusta o valor somando o módulo m0.
-(V) O cálculo de fi(n1) (função totiente de Euler) é utilizado apenas quando n1 não é primo.
-
-*/
